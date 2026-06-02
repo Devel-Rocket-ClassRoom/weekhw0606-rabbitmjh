@@ -8,7 +8,7 @@ void BattleShip()
 
 	GameState* game = new GameState;
 	PlaceEnemyShip(game);
-
+	game->PrintRealMap();
 	game->PrintMap();
 	
 	delete game;
@@ -21,6 +21,7 @@ void Input()
 
 	int x, y;
 	cin >> x >> y;
+	Attack(y, x);
 }
 
 void PlaceEnemyShip(GameState* game)
@@ -81,11 +82,9 @@ void PlaceEnemyShip(GameState* game)
 	}
 }
 
-// 함선 배치
-// 큰거부터
-// 가로 세로 랜덤 배치
-// 겹치지 않아야함
-// 5 -> 2~7
-// 4 -> 2~7
-// 3 -> 1~9
-// 2 -> 1~9
+void Attack(int y, int x)
+{
+	
+}
+
+//TO DO: 공격, 격침 판정, 게임 종료 출력

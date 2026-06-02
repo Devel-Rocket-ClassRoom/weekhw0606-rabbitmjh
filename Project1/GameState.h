@@ -11,6 +11,7 @@ protected:
 
 public:
 	void PrintMap();
+	void PrintRealMap();
 	bool VictoryCheck();
 
 	int getMap(int y, int x) { return GameMap[y][x]; }
