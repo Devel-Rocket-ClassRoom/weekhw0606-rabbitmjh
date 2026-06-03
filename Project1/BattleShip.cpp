@@ -1,4 +1,4 @@
-#include "BattleShip.h"
+﻿#include "BattleShip.h"
 #include <iostream>
 using namespace std;
 
@@ -38,11 +38,13 @@ void PlaceEnemyShip(GameState* game)
 			}
 			else
 			{
-				x = (rand() % 9) + 1;
-				y = (rand() % 9) + 1;
+				x = (rand() % 8) + 1;
+				y = (rand() % 8) + 1;
 			}
 			bool wl = rand() % 2; // 0이면 가로, 1이면 세로
-
+			bool chk;
+			if (x == 9)
+				chk = true;
 			int cnt = 0;
 			if (!wl)
 			{
