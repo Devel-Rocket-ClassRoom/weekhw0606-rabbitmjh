@@ -11,7 +11,7 @@ void BattleShip()
 	GameState* game = new GameState;
 	game->SetZero();
 	PlaceEnemyShip(game);
-	while (game->getCount()&&game->getEnemyShipCount())
+	while (game->GetCount()&&game->GetEnemyShipCount())
 	{
 		//game->PrintRealMap();
 		game->PrintMap();
@@ -29,7 +29,7 @@ void Input(GameState* game)
 
 	int x, y;
 	cin >> x >> y;
-	while (x < 0 || y < 0 || x>9 || y>9 || game->getMap(y, x) == 'h')
+	while (x < 0 || y < 0 || x>9 || y>9 || game->GetMap(y, x) == 'h')
 	{
 		if (x < 0 || y < 0 || x>9 || y>9)
 		{
@@ -44,8 +44,8 @@ void Input(GameState* game)
 	}
 
 	Attack(game, y, x);
-	game->setLastAttackX(x);
-	game->setLastAttackY(y);
+	game->SetLastAttackX(x);
+	game->SetLastAttackY(y);
 }
 
 void PlaceEnemyShip(GameState* game)
@@ -54,50 +54,55 @@ void PlaceEnemyShip(GameState* game)
 	{
 		while (1)
 		{
+			// 함선의 중앙 좌표(x,y)를 함선이 맵을 벗어나지 않게 지정하는 랜덤 좌표
 			int x, y;
-			if (n == 0 || n == 1)
+			if (n == 0 || n == 1)		// 함선의 길이가 5,4인 경우
 			{
 				x = (rand() % 6) + 2;
 				y = (rand() % 6) + 2;
 			}
-			else
+			else						// 함선의 길이가 3,2인 경우
 			{
 				x = (rand() % 8) + 1;
 				y = (rand() % 8) + 1;
 			}
-			bool wl = rand() % 2; // 0이면 가로, 1이면 세로
+			bool WidthLengthRandom = rand() % 2; // 0이면 가로, 1이면 세로
 
 			int cnt = 0;
-			if (!wl) // 가로
+			if (!WidthLengthRandom) // 가로
 			{
+				int ShipStartX = (x - game->GetEnemyShip(n) / 2);
+				int ShipEndX = (x + (game->GetEnemyShip(n) % 2 == 1 ? game->GetEnemyShip(n) / 2 : game->GetEnemyShip(n) / 2 - 1));
 				// 배의 크기가 홀수면 x-배의 크기/2 ~ x+배의 크기, 짝수면 x-배의크기/2 ~ x+배의 크기-1
-				for (int i = (x - game->getEnemyShip(n) / 2); i <= (x + (game->getEnemyShip(n) % 2 == 1 ? game->getEnemyShip(n) / 2 : game->getEnemyShip(n) / 2 - 1)); i++)
+				for (int i = ShipStartX; i <= ShipEndX; i++)
 				{
-					if ((game->getRealMap(y, i)) == '.')
+					if ((game->GetRealMap(y, i)) == '.')
 						cnt++;
 				}
-				if (cnt == game->getEnemyShip(n))
+				if (cnt == game->GetEnemyShip(n))
 				{
-					for (int i = (x - game->getEnemyShip(n) / 2); i <= (x + (game->getEnemyShip(n) % 2 == 1 ? game->getEnemyShip(n) / 2 : game->getEnemyShip(n) / 2 - 1)); i++)
+					for (int i = ShipStartX; i <= ShipEndX; i++)
 					{
-						game->setRealMap(y, i, game->getEnemyShip(n) + '0');
+						game->SetRealMap(y, i, game->GetEnemyShip(n) + '0');
 					}
 					break;
 				}
 			}
 			else // 세로
 			{
+				int ShipStartY = (y - game->GetEnemyShip(n) / 2);
+				int ShipEndY = (y + (game->GetEnemyShip(n) % 2 == 1 ? game->GetEnemyShip(n) / 2 : game->GetEnemyShip(n) / 2 - 1));
 				// 배의 크기가 홀수면 y-배의 크기/2 ~ y+배의 크기, 짝수면 y-배의크기/2 ~ y+배의 크기-1
-				for (int i = (y - game->getEnemyShip(n) / 2); i <= (y + (game->getEnemyShip(n) % 2 == 1 ? game->getEnemyShip(n) / 2 : game->getEnemyShip(n) / 2 - 1)); i++)
+				for (int i = ShipStartY; i <= ShipEndY; i++)
 				{
-					if ((game->getRealMap(i, x)) == '.')
+					if ((game->GetRealMap(i, x)) == '.')
 						cnt++;
 				}
-				if (cnt == game->getEnemyShip(n))
+				if (cnt == game->GetEnemyShip(n))
 				{
-					for (int i = (y - game->getEnemyShip(n) / 2); i <= (y + (game->getEnemyShip(n) % 2 == 1 ? game->getEnemyShip(n) / 2 : game->getEnemyShip(n) / 2 - 1)); i++)
+					for (int i = ShipStartY; i <= ShipEndY; i++)
 					{
-						game->setRealMap(i, x, game->getEnemyShip(n) + '0');
+						game->SetRealMap(i, x, game->GetEnemyShip(n) + '0');
 					}
 					break;
 				}
@@ -108,11 +113,11 @@ void PlaceEnemyShip(GameState* game)
 
 void Attack(GameState* game, int y, int x)
 {
-	game->setCountMinusOne();
-	game->setMap(y, x, 'h');
-	if (game->getRealMap(y, x) != '.')
+	game->SetCountMinusOne();
+	game->SetMap(y, x, 'h');
+	if (game->GetRealMap(y, x) != '.')
 	{
-		game->setShipHitCountPlusOne(game->getRealMap(y, x) - '0');
+		game->SetShipHitCountPlusOne(game->GetRealMap(y, x) - '0');
 		game->SinkCheck(y, x);
 	}
 }

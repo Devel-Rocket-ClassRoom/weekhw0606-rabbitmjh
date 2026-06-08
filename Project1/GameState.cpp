@@ -6,8 +6,8 @@ void GameState::SetZero()
 	for(int i=0;i<10;i++)
 		for (int j = 0; j < 10; j++)
 		{
-			setMap(i, j, '.');
-			setRealMap(i, j, '.');
+			SetMap(i, j, '.');
+			SetRealMap(i, j, '.');
 		}
 }
 
@@ -27,22 +27,22 @@ void GameState::PrintMap()
 		printf("│\n");
 	}
 	printf("├───┴──────────────────────────────┤\n");
-	printf("│남은 공격 횟수: %02d회              │\n", getCount());
-	printf("│남은 적 함선 수 : %d척             │\n", getEnemyShipCount());
-	if (getSinkPrint())
+	printf("│남은 공격 횟수: %02d회              │\n", GetCount());
+	printf("│남은 적 함선 수 : %d척             │\n", GetEnemyShipCount());
+	if (GetSinkPrint())
 	{
-		if (getRealMap(getLastAttackY(), getLastAttackX()) == '5')
+		if (GetRealMap(GetLastAttackY(), GetLastAttackX()) == '5')
 			printf("│적 항공모함을 격침했습니다.       │\n");
-		else if (getRealMap(getLastAttackY(), getLastAttackX()) == '4')
+		else if (GetRealMap(GetLastAttackY(), GetLastAttackX()) == '4')
 			printf("│적 전함을 격침했습니다.           │\n");
-		else if (getRealMap(getLastAttackY(), getLastAttackX()) == '3')
+		else if (GetRealMap(GetLastAttackY(), GetLastAttackX()) == '3')
 			printf("│적 순양함을 격침했습니다.         │\n");
-		else if (getRealMap(getLastAttackY(), getLastAttackX()) == '2')
+		else if (GetRealMap(GetLastAttackY(), GetLastAttackX()) == '2')
 			printf("│적 구축함을 격침했습니다.         │\n");
 	}
 	printf("└──────────────────────────────────┘\n");
-	if (getSinkPrint())
-		reverseSinkPrint();
+	if (GetSinkPrint())
+		ReverseSinkPrint();
 }
 
 void GameState::PrintRealMap()
@@ -61,18 +61,18 @@ void GameState::PrintRealMap()
 		printf("│\n");
 	}
 	printf("├───┴──────────────────────────────┤\n");
-	printf("│남은 공격 횟수: %02d회              │\n", getCount());
-	printf("│남은 적 함선 수 : %d척             │\n", getEnemyShipCount());
+	printf("│남은 공격 횟수: %02d회              │\n", GetCount());
+	printf("│남은 적 함선 수 : %d척             │\n", GetEnemyShipCount());
 	printf("└──────────────────────────────────┘\n");
 
 }
 
 bool GameState::SinkCheck(int y, int x)
 {
-	if ((getRealMap(y, x) - '0') == EnemyShipHitCount[getRealMap(y, x) - '0'])
+	if ((GetRealMap(y, x) - '0') == EnemyShipHitCount[GetRealMap(y, x) - '0'])
 	{
-		setEnemyShipCountMinusOne();
-		reverseSinkPrint();
+		SetEnemyShipCountMinusOne();
+		ReverseSinkPrint();
 		return true;
 	}
 	else
@@ -81,7 +81,7 @@ bool GameState::SinkCheck(int y, int x)
 
 bool GameState::VictoryCheck()
 {
-	if (!getEnemyShipCount() && getCount() >= 0)
+	if (!GetEnemyShipCount() && GetCount() >= 0)
 		return true;
 	else
 		return false;

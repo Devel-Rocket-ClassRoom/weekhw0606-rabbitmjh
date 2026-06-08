@@ -19,23 +19,23 @@ public:
 	bool SinkCheck(int y, int x);
 	bool VictoryCheck();
 
-	char getMap(int y, int x) { return GameMap[y][x]; }
-	void setMap(int y, int x, char val) { GameMap[y][x] = val; }
-	char getRealMap(int y, int x) { return RealGameMap[y][x]; }
-	void setRealMap(int y, int x, char val) { RealGameMap[y][x] = val; }
+	char GetMap(int y, int x) { return GameMap[y][x]; }
+	void SetMap(int y, int x, char val) { GameMap[y][x] = val; }
+	char GetRealMap(int y, int x) { return RealGameMap[y][x]; }
+	void SetRealMap(int y, int x, char val) { RealGameMap[y][x] = val; }
 
-	int getCount() { return Count; }
-	void setCountMinusOne() { Count--; }
-	int getEnemyShipCount() { return EnemyShipCount; }
-	void setEnemyShipCountMinusOne() { EnemyShipCount--; }
-	int getEnemyShip(int n) { return EnemyShip[n]; }
-	int getShipHitCount(int n) { return EnemyShipHitCount[n]; }
-	void setShipHitCountPlusOne(int n) { EnemyShipHitCount[n]++; }
-	bool getSinkPrint() { return SinkPrint; }
-	void reverseSinkPrint() { SinkPrint = !SinkPrint; }
-	int getLastAttackY() { return LastAttackY; }
-	void setLastAttackY(int y) { LastAttackY = y; }
-	int getLastAttackX() { return LastAttackX; }
-	void setLastAttackX(int x) { LastAttackX = x; }
+	int GetCount() { return Count; }
+	void SetCountMinusOne() { Count--; }
+	int GetEnemyShipCount() { return EnemyShipCount; }
+	void SetEnemyShipCountMinusOne() { EnemyShipCount--; }
+	int GetEnemyShip(int n) { return EnemyShip[n]; }
+	int GetShipHitCount(int n) { return EnemyShipHitCount[n]; }
+	void SetShipHitCountPlusOne(int n) { EnemyShipHitCount[n]++; }
+	bool GetSinkPrint() { return SinkPrint; }
+	void ReverseSinkPrint() { SinkPrint = !SinkPrint; }
+	int GetLastAttackY() { return LastAttackY; }
+	void SetLastAttackY(int y) { LastAttackY = y; }
+	int GetLastAttackX() { return LastAttackX; }
+	void SetLastAttackX(int x) { LastAttackX = x; }
 };
 
